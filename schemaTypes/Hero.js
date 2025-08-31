@@ -29,5 +29,10 @@ export default {
       type: 'text',
       title: 'Paragraph For Home Intro',
     },
+    {
+      name: 'logo',
+      type: 'image',
+      title: 'Logo Image on Navbar',
+    },
   ],
 }
