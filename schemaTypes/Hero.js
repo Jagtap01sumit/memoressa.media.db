@@ -35,6 +35,12 @@ export default {
       of: [{type: 'reference', to: [{type: 'services'}]}],
     },
     {
+      name: 'reviews',
+      title: 'Client Review Cards',
+      type: 'reference',
+      to: [{type: 'reviewsGroup'}],
+    },
+    {
       name: 'sliderImages',
       title: 'Slider Images',
       type: 'array',
@@ -46,4 +52,18 @@ export default {
       ],
     },
   ],
+  preview: {
+    select: {
+      title: 'groupTitle',
+      media: 'reviews[0].image',
+      subtitle: 'reviews[0].name',
+    },
+    prepare({title, subtitle, media}) {
+      return {
+        title: title || 'Review Group',
+        subtitle: subtitle ? `First review by ${subtitle}` : 'No reviews yet',
+        media,
+      }
+    },
+  },
 }
