@@ -70,12 +70,14 @@ export default {
   preview: {
     select: {
       title: 'groupTitle',
-      firstReviewer: 'reviews[0].name',
+      firstReviewer: 'reviews.0.name',
+      media: 'reviews.0.image',
     },
-    prepare({title, firstReviewer}) {
+    prepare({title, firstReviewer, media}) {
       return {
         title: title || 'Review Group',
         subtitle: firstReviewer ? `First review by ${firstReviewer}` : 'No reviews yet',
+        media,
       }
     },
   },

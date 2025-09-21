@@ -22,10 +22,10 @@ export default {
       type: 'object',
       fields: [
         {name: 'heading', type: 'string', title: 'Heading'},
-        {name: 'paragraph', type: 'text', title: 'Paragraph'},
+        {name: 'introPara', type: 'text', title: 'Intro Paragraph (below image)'},
         {name: 'image', type: 'image', title: 'Hero Image'},
         {name: 'introTitle', type: 'string', title: 'Intro Title (below image)'},
-        {name: 'introPara', type: 'text', title: 'Intro Paragraph (below image)'},
+        {name: 'paragraph', type: 'text', title: 'Paragraph'},
       ],
     },
     {
@@ -54,14 +54,14 @@ export default {
   ],
   preview: {
     select: {
-      title: 'groupTitle',
-      media: 'reviews[0].image',
-      subtitle: 'reviews[0].name',
+      title: 'title',
+      media: 'hero.image',
+      subtitle: 'slug.current',
     },
     prepare({title, subtitle, media}) {
       return {
-        title: title || 'Review Group',
-        subtitle: subtitle ? `First review by ${subtitle}` : 'No reviews yet',
+        title: title || 'Untitled Page',
+        subtitle: subtitle ? `/${subtitle}` : '',
         media,
       }
     },
