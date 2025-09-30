@@ -132,10 +132,14 @@ export default defineType({
     }),
   ],
   preview: {
-    prepare() {
+    select: {
+      media: 'hero.image',
+    },
+    prepare({media}) {
       return {
         title: 'About Page',
         subtitle: 'Main content',
+        media,
       }
     },
   },

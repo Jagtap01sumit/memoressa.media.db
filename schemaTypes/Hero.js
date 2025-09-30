@@ -1,38 +1,69 @@
 export default {
-  name: 'hero',
-  title: 'Hero Details',
+  name: 'page',
+  title: 'Website Pages',
   type: 'document',
   fields: [
     {
-      name: 'Title',
+      name: 'title',
       type: 'string',
-      title: 'Title For Main Page',
+      title: 'Page Title',
+      validation: (Rule) => Rule.required(),
     },
     {
-      name: 'Paragraph',
-      type: 'text',
-      title: 'Paragraph For Main Page',
+      name: 'slug',
+      type: 'slug',
+      title: 'Page Slug',
+      options: {source: 'title', maxLength: 96},
+      validation: (Rule) => Rule.required(),
     },
     {
-      title: 'Select Hero Image',
-      name: 'heroImage',
+      name: 'hero',
+      title: 'Hero Section',
+      type: 'object',
+      fields: [
+        {name: 'heading', type: 'string', title: 'Heading'},
+        {name: 'introPara', type: 'text', title: 'Intro Paragraph (below image)'},
+        {name: 'image', type: 'image', title: 'Hero Image'},
+        {name: 'introTitle', type: 'string', title: 'Intro Title (below image)'},
+        {name: 'paragraph', type: 'text', title: 'Paragraph'},
+      ],
+    },
+    {
+      name: 'services',
+      title: 'Service Cards',
+      type: 'array',
+      of: [{type: 'reference', to: [{type: 'services'}]}],
+    },
+    {
+      name: 'reviews',
+      title: 'Client Review Cards',
       type: 'reference',
-      to: [{type: 'hero_images'}],
+      to: [{type: 'reviewsGroup'}],
     },
     {
-      name: 'Home_Intro_Title',
-      type: 'string',
-      title: 'Enter Home Intro Title',
-    },
-    {
-      name: 'Home_Intro_Para',
-      type: 'text',
-      title: 'Paragraph For Home Intro',
-    },
-    {
-      name: 'logo',
-      type: 'image',
-      title: 'Logo Image on Navbar',
+      name: 'sliderImages',
+      title: 'Slider Images',
+      type: 'array',
+      of: [
+        {
+          type: 'image',
+          options: {hotspot: true},
+        },
+      ],
     },
   ],
+  preview: {
+    select: {
+      title: 'title',
+      media: 'hero.image',
+      subtitle: 'slug.current',
+    },
+    prepare({title, subtitle, media}) {
+      return {
+        title: title || 'Untitled Page',
+        subtitle: subtitle ? `/${subtitle}` : '',
+        media,
+      }
+    },
+  },
 }
